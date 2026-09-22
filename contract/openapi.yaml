@@ -4,7 +4,60 @@ info:
   version: 0.1.0
 servers:
   - url: http://localhost:8080/api/v1
-paths: {}
+paths:
+  /events:
+    get:
+      operationId: listEvents
+      summary: List events with optional filters, paginated
+      security: []
+      parameters:
+        - name: city
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: artistId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: dateFrom
+          in: query
+          required: false
+          description: Inclusive. Compared against the venue's local date.
+          schema:
+            type: string
+            format: date
+        - name: dateTo
+          in: query
+          required: false
+          description: Inclusive. Compared against the venue's local date.
+          schema:
+            type: string
+            format: date
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Paginated list of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventPage'
 components:
   schemas:
     ArtistRef:
@@ -84,7 +137,7 @@ components:
         page:
           type: integer
           minimum: 1
-          description: 1'den başlar (ilk sayfa = 1)
+          description: 1-based (first page = 1)
         size:
           type: integer
           minimum: 1
