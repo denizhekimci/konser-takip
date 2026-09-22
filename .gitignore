@@ -6,3 +6,5 @@ docs/private/
 # Editors
 .vscode/
 .idea/
+
+*.local
