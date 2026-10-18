@@ -58,6 +58,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventPage'
+  /events/{id}:
+    get:
+      operationId: getEvent
+      summary: Get a single event with its ticket listings
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventDetail'
+        '404':
+          description: Event not found
 components:
   schemas:
     ArtistRef:
@@ -69,6 +90,15 @@ components:
           format: uuid
         name:
           type: string
+    Listing:
+      type: object
+      required: [platform, url]
+      properties:
+        platform:
+          $ref: '#/components/schemas/Platform'
+        url:
+          type: string
+          format: uri
     EventStatus:
       type: string
       enum: [onsale, offsale, cancelled, rescheduled, postponed]
@@ -155,3 +185,13 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/EventSummary'
+    EventDetail:
+      allOf:
+        - $ref: '#/components/schemas/EventSummary'
+        - type: object
+          required: [listings]
+          properties:
+            listings:
+              type: array
+              items:
+                $ref: '#/components/schemas/Listing'

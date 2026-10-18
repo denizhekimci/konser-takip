@@ -3,7 +3,42 @@
  * Do not make direct changes to the file.
  */
 
-export type paths = Record<string, never>;
+export interface paths {
+    "/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List events with optional filters, paginated */
+        get: operations["listEvents"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/events/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a single event with its ticket listings */
+        get: operations["getEvent"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+}
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
@@ -11,6 +46,11 @@ export interface components {
             /** Format: uuid */
             id: string;
             name: string;
+        };
+        Listing: {
+            platform: components["schemas"]["Platform"];
+            /** Format: uri */
+            url: string;
         };
         /** @enum {string} */
         EventStatus: "onsale" | "offsale" | "cancelled" | "rescheduled" | "postponed";
@@ -45,7 +85,7 @@ export interface components {
             currency: string | null;
         };
         PageMeta: {
-            /** @description 1'den başlar (ilk sayfa = 1) */
+            /** @description 1-based (first page = 1) */
             page: number;
             size: number;
             /** Format: int64 */
@@ -53,6 +93,9 @@ export interface components {
         };
         EventPage: components["schemas"]["PageMeta"] & {
             items: components["schemas"]["EventSummary"][];
+        };
+        EventDetail: components["schemas"]["EventSummary"] & {
+            listings: components["schemas"]["Listing"][];
         };
     };
     responses: never;
@@ -62,4 +105,63 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export interface operations {
+    listEvents: {
+        parameters: {
+            query?: {
+                city?: string;
+                artistId?: string;
+                /** @description Inclusive. Compared against the venue's local date. */
+                dateFrom?: string;
+                /** @description Inclusive. Compared against the venue's local date. */
+                dateTo?: string;
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Paginated list of events */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventPage"];
+                };
+            };
+        };
+    };
+    getEvent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The event */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EventDetail"];
+                };
+            };
+            /** @description Event not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+}
