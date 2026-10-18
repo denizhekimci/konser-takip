@@ -7,12 +7,12 @@ type EventPage = components['schemas']['EventPage']
 const API = import.meta.env.VITE_API_BASE_URL
 
 export const handlers = [
-    http.get(`${API}/events`, () => {
+  http.get(`${API}/events`, () => {
     return HttpResponse.json<EventPage>({
       items: events,
       page: 1,
       size: 20,
       totalElements: events.length,
     })
-  })
-];
+  }),
+]

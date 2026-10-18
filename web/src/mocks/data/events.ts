@@ -27,10 +27,9 @@ export const events: EventSummary[] = [
         name: 'Duman',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -56,10 +55,9 @@ export const events: EventSummary[] = [
         name: 'Fazil Say',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/919/10ad0c9c-6b83-4e29-a814-52a9e5913919_105641_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/919/10ad0c9c-6b83-4e29-a814-52a9e5913919_105641_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -105,10 +103,9 @@ export const events: EventSummary[] = [
         name: 'Hande Yener',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/80b/f3cd8d24-c3ae-4fa0-b4bc-1ba99f9b380b_106091_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/80b/f3cd8d24-c3ae-4fa0-b4bc-1ba99f9b380b_106091_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -138,10 +135,9 @@ export const events: EventSummary[] = [
         name: 'Seksendört',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -167,10 +163,9 @@ export const events: EventSummary[] = [
         name: 'Duman',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -196,10 +191,9 @@ export const events: EventSummary[] = [
         name: 'Duman',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
@@ -225,10 +219,9 @@ export const events: EventSummary[] = [
         name: 'Duman',
       },
     ],
-    platforms: [
-      'biletix',
-    ],
-    imageUrl: 'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
+    platforms: ['biletix'],
+    imageUrl:
+      'https://s1.ticketm.net/dam/c/fbc/b293c0ad-c904-4215-bc59-8d7f2414dfbc_106141_RETINA_LANDSCAPE_16_9.jpg',
     priceMin: null,
     priceMax: null,
     currency: null,
