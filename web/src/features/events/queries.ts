@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchEvent, fetchEvents } from './api'
+import { fetchEvent, fetchEvents, type EventFilters } from './api'
 
-export function useEventsQuery() {
+export function useEventsQuery(filters: EventFilters) {
   return useQuery({
-    queryKey: ['events'],
-    queryFn: fetchEvents,
+    queryKey: ['events', 'list', filters],
+    queryFn: () => fetchEvents(filters),
   })
 }
 

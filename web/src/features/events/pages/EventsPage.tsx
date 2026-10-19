@@ -1,8 +1,11 @@
+import { useSearchParams } from 'react-router'
 import { EventCard } from '../components/EventCard'
 import { useEventsQuery } from '../queries'
 
 export function EventsPage() {
-  const { data, isPending, isError } = useEventsQuery()
+  const [searchParams] = useSearchParams()
+  const city = searchParams.get('city') ?? undefined
+  const { data, isPending, isError } = useEventsQuery({city})
 
   if (isPending) {
     return <h1>Loading</h1>
@@ -18,6 +21,7 @@ export function EventsPage() {
 
   return (
     <div className="mx-auto max-w-3xl p-4">
+      <p>Şehir filtresi: {city ?? 'yok'}</p>
       <ul className="space-y-3">
         {data.items.map((e) => (
           <li key={e.id}>

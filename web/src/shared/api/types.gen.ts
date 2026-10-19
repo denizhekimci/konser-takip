@@ -109,6 +109,7 @@ export interface operations {
     listEvents: {
         parameters: {
             query?: {
+                /** @description Case-insensitive match using Turkish casing rules. "İstanbul", "istanbul" and "Istanbul" all match the same city. */
                 city?: string;
                 artistId?: string;
                 /** @description Inclusive. Compared against the venue's local date. */
