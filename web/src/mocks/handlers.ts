@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 import type { components } from '../shared/api/types.gen'
 import { events } from './data/events'
 import { listingsByEventId } from './data/listings'
@@ -15,7 +15,8 @@ function foldCity(value: string): string {
 }
 
 export const handlers = [
-  http.get(`${API}/events`, ({ request }) => {
+  http.get(`${API}/events`, async ({ request }) => {
+    await delay()
     const url = new URL(request.url)
     const city = url.searchParams.get('city')
 
