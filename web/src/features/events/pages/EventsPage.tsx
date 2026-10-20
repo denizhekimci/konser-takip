@@ -4,7 +4,7 @@ import { useEventsQuery } from '../queries'
 import { parseEventFilters } from '../filters'
 
 const CITIES = ['Ankara', 'Antalya', 'İstanbul']
-const PAGE_SIZE = 2
+const PAGE_SIZE = 20
 
 export function EventsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
