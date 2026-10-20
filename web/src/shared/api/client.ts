@@ -16,7 +16,7 @@ export async function apiGet<T>(
   path: string,
   params?: QueryParams,
 ): Promise<T> {
-  const url = new URL(BASE_URL + path)
+  const url = new URL(BASE_URL + path, window.location.origin)
 
   if (params) {
     for (const [key, value] of Object.entries(params)) {
