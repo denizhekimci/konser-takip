@@ -18,9 +18,11 @@ export function EventDetailPage() {
 
   return (
     <div>
-        <h1>{data.name}</h1>
-        <p>{data.venue.name}, {data.venue.city}</p>
-        <p>{data.listings.length} listing</p>
+      <h1>{data.name}</h1>
+      <p>
+        {data.venue.name}, {data.venue.city}
+      </p>
+      <p>{data.listings.length} listing</p>
     </div>
   )
 }

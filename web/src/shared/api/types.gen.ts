@@ -11,7 +11,10 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List events with optional filters, paginated */
+        /**
+         * List events with optional filters, paginated
+         * @description Results are ordered by startsAt ascending; events with the same startsAt are ordered by id ascending. The order is deterministic so that pages do not overlap or skip events.
+         */
         get: operations["listEvents"];
         put?: never;
         post?: never;

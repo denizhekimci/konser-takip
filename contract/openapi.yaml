@@ -9,6 +9,10 @@ paths:
     get:
       operationId: listEvents
       summary: List events with optional filters, paginated
+      description: >-
+        Results are ordered by startsAt ascending; events with the same
+        startsAt are ordered by id ascending. The order is deterministic so
+        that pages do not overlap or skip events.
       security: []
       parameters:
         - name: city

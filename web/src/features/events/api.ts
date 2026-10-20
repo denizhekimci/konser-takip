@@ -3,7 +3,9 @@ import type { components, operations } from '../../shared/api/types.gen'
 
 type EventPage = components['schemas']['EventPage']
 type EventDetail = components['schemas']['EventDetail']
-export type EventFilters = NonNullable<operations['listEvents']['parameters']['query']>
+export type EventFilters = NonNullable<
+  operations['listEvents']['parameters']['query']
+>
 
 export function fetchEvents(filters: EventFilters = {}): Promise<EventPage> {
   return apiGet<EventPage>('/events', filters)

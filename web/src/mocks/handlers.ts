@@ -19,15 +19,24 @@ export const handlers = [
     await delay()
     const url = new URL(request.url)
     const city = url.searchParams.get('city')
+    const page = Number(url.searchParams.get('page') || '1')
+    const size = Number(url.searchParams.get('size') || '20')
 
     const filtered = city
       ? events.filter((e) => foldCity(e.venue.city) === foldCity(city))
       : events
 
+    const sorted = filtered.toSorted((a, b) =>
+      a.startsAt.localeCompare(b.startsAt) || a.id.localeCompare(b.id),
+    )
+    const offset = (page - 1) * size
+
+    const paginated = sorted.slice(offset, offset + size)
+
     return HttpResponse.json<EventPage>({
-      items: filtered,
-      page: 1,
-      size: 20,
+      items: paginated,
+      page: page,
+      size: size,
       totalElements: filtered.length,
     })
   }),

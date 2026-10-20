@@ -12,6 +12,6 @@ export function useEventsQuery(filters: EventFilters) {
 export function useEventQuery(id: string) {
   return useQuery({
     queryKey: ['events', 'detail', id],
-    queryFn: () => fetchEvent(id)
+    queryFn: () => fetchEvent(id),
   })
 }
