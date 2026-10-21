@@ -5,6 +5,8 @@ import { listingsByEventId } from './data/listings'
 
 type EventPage = components['schemas']['EventPage']
 type EventDetail = components['schemas']['EventDetail']
+type City = components['schemas']['City']
+type CityList = components['schemas']['CityList']
 
 const API = import.meta.env.VITE_API_BASE_URL
 
@@ -12,6 +14,33 @@ const API = import.meta.env.VITE_API_BASE_URL
 // with dotless ı folded to i so "Istanbul" matches "İstanbul".
 function foldCity(value: string): string {
   return value.toLocaleLowerCase('tr-TR').replaceAll('ı', 'i')
+}
+
+const MOCK_NOW = new Date('2026-10-21T00:00:00Z')
+
+const trCollator = new Intl.Collator('tr')
+
+const compareCode = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0)
+
+function listCities(): CityList {
+  // Key is country + name: Paris/FR and Paris/US are different cities.
+  const byKey = new Map<string, City>()
+
+  for (const event of events) {
+    if (event.status === 'cancelled') continue
+    if (new Date(event.startsAt) <= MOCK_NOW) continue
+
+    const { city: name, countryCode } = event.venue
+    byKey.set(`${countryCode}|${name}`, { name, countryCode })
+  }
+
+  const items = [...byKey.values()].toSorted(
+    (a, b) =>
+      compareCode(a.countryCode, b.countryCode) ||
+      trCollator.compare(a.name, b.name),
+  )
+
+  return { items }
 }
 
 export const handlers = [
@@ -26,8 +55,9 @@ export const handlers = [
       ? events.filter((e) => foldCity(e.venue.city) === foldCity(city))
       : events
 
-    const sorted = filtered.toSorted((a, b) =>
-      a.startsAt.localeCompare(b.startsAt) || a.id.localeCompare(b.id),
+    const sorted = filtered.toSorted(
+      (a, b) =>
+        a.startsAt.localeCompare(b.startsAt) || a.id.localeCompare(b.id),
     )
     const offset = (page - 1) * size
 
@@ -39,6 +69,10 @@ export const handlers = [
       size: size,
       totalElements: filtered.length,
     })
+  }),
+  http.get(`${API}/cities`, async () => {
+    await delay()
+    return HttpResponse.json<CityList>(listCities())
   }),
   http.get(`${API}/events/:id`, ({ params }) => {
     const event = events.find((e) => e.id === params.id)

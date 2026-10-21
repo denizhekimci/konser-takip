@@ -1,14 +1,22 @@
 import { useSearchParams } from 'react-router'
 import { EventCard } from '../components/EventCard'
-import { useEventsQuery } from '../queries'
+import { useCitiesQuery, useEventsQuery } from '../queries'
 import { parseEventFilters } from '../filters'
 
-const CITIES = ['Ankara', 'Antalya', 'İstanbul']
 const PAGE_SIZE = 20
 
 export function EventsPage() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const filters = parseEventFilters(searchParams, CITIES)
+
+  const { data: cityList } = useCitiesQuery()
+  const cityNames = cityList?.items.map((c) => c.name) ?? []
+
+  const filters = parseEventFilters(searchParams, cityNames)
+  const cityOptions =
+    filters.city && !cityNames.includes(filters.city)
+      ? [filters.city, ...cityNames]
+      : cityNames
+
   const { data, isPending, isError, isPlaceholderData } = useEventsQuery({
     ...filters,
     size: PAGE_SIZE,
@@ -43,7 +51,7 @@ export function EventsPage() {
         className="mb-4 rounded bg-neutral-900 p-2"
       >
         <option value="">Tüm şehirler</option>
-        {CITIES.map((c) => (
+        {cityOptions.map((c) => (
           <option key={c} value={c}>
             {c}
           </option>

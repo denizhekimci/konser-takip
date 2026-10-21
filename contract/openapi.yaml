@@ -65,6 +65,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventPage'
+  /cities:
+    get:
+      operationId: listCities
+      summary: List cities that have upcoming events
+      description: >
+        Returns every city with at least one upcoming event
+        (startsAt in the future, status other than cancelled).
+        Not paginated: the list is bounded.
+        Ordered by countryCode, then by name using Unicode collation
+        for the Turkish locale (ICU "tr").
+        The name value is the canonical form accepted by the
+        city parameter of GET /events.
+      security: []
+      responses:
+        '200':
+          description: Cities with upcoming events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityList'
   /events/{id}:
     get:
       operationId: getEvent
@@ -88,6 +108,26 @@ paths:
           description: Event not found
 components:
   schemas:
+    CountryCode:
+      type: string
+      pattern: '^[A-Z]{2}$'
+      description: ISO 3166-1 alpha-2, e.g. TR
+    City:
+      type: object
+      required: [name, countryCode]
+      properties:
+        name:
+          type: string
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+    CityList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/City'
     ArtistRef:
       type: object
       required: [id, name]
@@ -124,9 +164,7 @@ components:
         city:
           type: string
         countryCode:
-          type: string
-          pattern: '^[A-Z]{2}$'
-          description: ISO 3166-1 alpha-2, ex. TR
+          $ref: '#/components/schemas/CountryCode'
     EventSummary:
       type: object
       required: [id, name, status, startsAt, localDate, localTime, timezone, venue, artists, platforms, imageUrl, priceMin, priceMax, currency]
