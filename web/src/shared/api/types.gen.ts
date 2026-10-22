@@ -143,9 +143,9 @@ export interface operations {
                 /** @description Case-insensitive match using Turkish casing rules. "İstanbul", "istanbul" and "Istanbul" all match the same city. */
                 city?: string;
                 artistId?: string;
-                /** @description Inclusive. Compared against the venue's local date. */
+                /** @description Inclusive. Compared against the venue's local date. If neither dateFrom nor dateTo is given, only upcoming events are returned (startsAt after the current instant). If either is given, no default applies. dateFrom after dateTo is a 400. */
                 dateFrom?: string;
-                /** @description Inclusive. Compared against the venue's local date. */
+                /** @description Inclusive. Compared against the venue's local date. See dateFrom for the default when both are omitted. */
                 dateTo?: string;
                 page?: number;
                 size?: number;
@@ -164,6 +164,13 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["EventPage"];
                 };
+            };
+            /** @description dateFrom is after dateTo */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

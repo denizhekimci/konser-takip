@@ -32,6 +32,16 @@ export function EventsPage() {
     })
   }
 
+  function handleDateChange(key: 'dateFrom' | 'dateTo', value: string) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev)
+      if (value) next.set(key, value)
+      else next.delete(key)
+      next.delete('page')
+      return next
+    })
+  }
+
   function goToPage(page: number) {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev)
@@ -57,6 +67,18 @@ export function EventsPage() {
           </option>
         ))}
       </select>
+      <input
+        type="date"
+        value={filters.dateFrom ?? ''}
+        max={filters.dateTo}
+        onChange={(e) => handleDateChange('dateFrom', e.target.value)}
+      />
+      <input
+        type="date"
+        value={filters.dateTo ?? ''}
+        min={filters.dateFrom}
+        onChange={(e) => handleDateChange('dateTo', e.target.value)}
+      />
 
       {isPending ? (
         <p>Loading</p>

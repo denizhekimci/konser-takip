@@ -32,14 +32,20 @@ paths:
         - name: dateFrom
           in: query
           required: false
-          description: Inclusive. Compared against the venue's local date.
+          description: >
+            Inclusive. Compared against the venue's local date.
+            If neither dateFrom nor dateTo is given, only upcoming events
+            are returned (startsAt after the current instant). If either is
+            given, no default applies. dateFrom after dateTo is a 400.
           schema:
             type: string
             format: date
         - name: dateTo
           in: query
           required: false
-          description: Inclusive. Compared against the venue's local date.
+          description: >
+            Inclusive. Compared against the venue's local date.
+            See dateFrom for the default when both are omitted.
           schema:
             type: string
             format: date
@@ -65,6 +71,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventPage'
+        '400':
+          description: dateFrom is after dateTo
   /cities:
     get:
       operationId: listCities

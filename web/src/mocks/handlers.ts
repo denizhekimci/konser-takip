@@ -51,9 +51,22 @@ export const handlers = [
     const page = Number(url.searchParams.get('page') || '1')
     const size = Number(url.searchParams.get('size') || '20')
 
-    const filtered = city
-      ? events.filter((e) => foldCity(e.venue.city) === foldCity(city))
-      : events
+    const dateFrom = url.searchParams.get('dateFrom')
+    const dateTo = url.searchParams.get('dateTo')
+
+    // ISO dates compare correctly as strings.
+    if (dateFrom && dateTo && dateFrom > dateTo) {
+      return new HttpResponse(null, { status: 400 })
+    }
+
+    const filtered = events.filter((e) => {
+      if (city && foldCity(e.venue.city) !== foldCity(city)) return false
+      // Contract default: no date params → upcoming only (instant, not date).
+      if (!dateFrom && !dateTo) return new Date(e.startsAt) > MOCK_NOW
+      if (dateFrom && e.localDate < dateFrom) return false
+      if (dateTo && e.localDate > dateTo) return false
+      return true
+    })
 
     const sorted = filtered.toSorted(
       (a, b) =>
