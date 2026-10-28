@@ -1,7 +1,9 @@
 import { useParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { useEventQuery } from '../queries'
 
 export function EventDetailPage() {
+  const { t } = useTranslation()
   const { eventId } = useParams()
   if (!eventId) {
     throw new Error('EventDetailPage: route must define :eventId')
@@ -9,11 +11,11 @@ export function EventDetailPage() {
   const { data, isPending, isError } = useEventQuery(eventId)
 
   if (isPending) {
-    return <h1>Loading</h1>
+    return <h1>{t('common.loading')}</h1>
   }
 
   if (isError) {
-    return <h1>Error loading event</h1>
+    return <h1>{t('eventDetail.loadError')}</h1>
   }
 
   return (
@@ -22,7 +24,7 @@ export function EventDetailPage() {
       <p>
         {data.venue.name}, {data.venue.city}
       </p>
-      <p>{data.listings.length} listing</p>
+      <p>{t('eventDetail.listingCount', { count: data.listings.length })}</p>
     </div>
   )
 }

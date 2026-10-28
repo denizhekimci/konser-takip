@@ -1,12 +1,36 @@
 {
   "common": {
-    "loading": "Yükleniyor…"
+    "loading": "Yükleniyor…",
+    "pagination": {
+      "emptyPage": "Bu sayfa boş.",
+      "firstPage": "İlk sayfaya dön",
+      "previous": "Önceki",
+      "pageOf": "Sayfa {{page}} / {{total}}",
+      "next": "Sonraki"
+    },
+    "clear": "Temizle"
   },
   "nav": {
     "events": "Konserler",
     "language": "Dil"
   },
   "events": {
-    "loadError": "Etkinlikler yüklenemedi."
+    "loadError": "Etkinlikler yüklenemedi.",
+    "empty": "Bu filtrelere uyan konser yok.",
+    "filters": {
+      "allCities": "Tüm şehirler",
+      "invalidRange": "Başlangıç tarihi bitiş tarihinden sonra.",
+      "clearDates": "Tarihleri temizle",
+      "pickDate": "Tarih seç"
+    }
+  },
+  "eventDetail": {
+    "loadError": "Etkinlik yüklenemedi.",
+    "listingCount_one": "{{count}} satış kaydı",
+    "listingCount_other": "{{count}} satış kaydı"
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "backToEvents": "Konserlere dön"
   }
 }

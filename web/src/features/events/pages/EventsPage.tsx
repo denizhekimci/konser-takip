@@ -71,7 +71,7 @@ export function EventsPage() {
         onChange={(e) => handleCityChange(e.target.value)}
         className="mb-4 rounded bg-neutral-900 p-2"
       >
-        <option value="">Tüm şehirler</option>
+        <option value="">{t('events.filters.allCities')}</option>
         {cityOptions.map((c) => (
           <option key={c} value={c}>
             {c}
@@ -86,9 +86,9 @@ export function EventsPage() {
 
       {rangeInvalid ? (
         <div>
-          <p>Başlangıç tarihi bitiş tarihinden sonra.</p>
+          <p>{t('events.filters.invalidRange')}</p>
           <button onClick={() => handleDateRangeChange({})}>
-            Tarihleri temizle
+            {t('events.filters.clearDates')}
           </button>
         </div>
       ) : isPending ? (
@@ -96,11 +96,13 @@ export function EventsPage() {
       ) : isError ? (
         <p>{t('events.loadError')}</p>
       ) : data.totalElements === 0 ? (
-        <p>No events to match these filters.</p>
+        <p>{t('events.empty')}</p>
       ) : data.items.length === 0 ? (
         <div>
-          <p>This page is empty.</p>
-          <button onClick={() => goToPage(1)}>Go to first page</button>
+          <p>{t('common.pagination.emptyPage')}</p>
+          <button onClick={() => goToPage(1)}>
+            {t('common.pagination.firstPage')}
+          </button>
         </div>
       ) : (
         <>
@@ -118,16 +120,19 @@ export function EventsPage() {
               onClick={() => goToPage(filters.page - 1)}
               disabled={filters.page === 1}
             >
-              Önceki
+              {t('common.pagination.previous')}
             </button>
             <span>
-              Sayfa {filters.page} / {totalPages}
+              {t('common.pagination.pageOf', {
+                page: filters.page,
+                total: totalPages,
+              })}
             </span>
             <button
               onClick={() => goToPage(filters.page + 1)}
               disabled={filters.page >= totalPages}
             >
-              Sonraki
+              {t('common.pagination.next')}
             </button>
           </div>
         </>

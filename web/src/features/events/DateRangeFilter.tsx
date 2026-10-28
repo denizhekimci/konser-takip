@@ -8,6 +8,7 @@ import {
 import { format, parseISO } from 'date-fns'
 import { tr } from 'date-fns/locale'
 import type { DateRange } from 'react-day-picker'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   from?: string
@@ -19,6 +20,7 @@ const toDate = (value?: string) => (value ? parseISO(value) : undefined)
 const toIso = (date?: Date) => (date ? format(date, 'yyyy-MM-dd') : undefined)
 
 export function DateRangeFilter({ from, to, onChange }: Props) {
+  const { t } = useTranslation()
   const selected: DateRange | undefined = from
     ? { from: toDate(from), to: toDate(to) }
     : undefined
@@ -31,7 +33,7 @@ export function DateRangeFilter({ from, to, onChange }: Props) {
     ? `${format(parseISO(from), 'd MMM', { locale: tr })}${
         to ? ` – ${format(parseISO(to), 'd MMM', { locale: tr })}` : ' –'
       }`
-    : 'Tarih seç'
+    : t('events.filters.pickDate')
 
   return (
     <Popover>
@@ -54,7 +56,7 @@ export function DateRangeFilter({ from, to, onChange }: Props) {
               className="w-full"
               onClick={() => onChange({})}
             >
-              Temizle
+              {t('common.clear')}
             </Button>
           </div>
         )}

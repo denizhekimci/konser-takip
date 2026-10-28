@@ -1,12 +1,36 @@
 {
   "common": {
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "pagination": {
+      "emptyPage": "This page is empty.",
+      "firstPage": "Go to first page",
+      "previous": "Previous",
+      "pageOf": "Page {{page}} / {{total}}",
+      "next": "Next"
+    },
+    "clear": "Clear"
   },
   "nav": {
     "events": "Concerts",
     "language": "Language"
   },
   "events": {
-    "loadError": "Couldn't load events."
+    "loadError": "Couldn't load events.",
+    "empty": "No concerts match these filters.",
+    "filters": {
+      "allCities": "All cities",
+      "invalidRange": "Start date is after end date.",
+      "clearDates": "Clear dates",
+      "pickDate": "Pick dates"
+    }
+  },
+  "eventDetail": {
+    "loadError": "Couldn't load the event.",
+    "listingCount_one": "{{count}} listing",
+    "listingCount_other": "{{count}} listings"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "backToEvents": "Back to concerts"
   }
 }
