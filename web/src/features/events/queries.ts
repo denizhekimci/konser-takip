@@ -1,11 +1,15 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { fetchCities, fetchEvent, fetchEvents, type EventFilters } from './api'
 
-export function useEventsQuery(filters: EventFilters) {
+export function useEventsQuery(
+  filters: EventFilters,
+  options: { enabled?: boolean } = {},
+) {
   return useQuery({
     queryKey: ['events', 'list', filters],
     queryFn: () => fetchEvents(filters),
     placeholderData: keepPreviousData,
+    enabled: options.enabled,
   })
 }
 

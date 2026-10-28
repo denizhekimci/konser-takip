@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router'
 import { EventCard } from '../components/EventCard'
 import { useCitiesQuery, useEventsQuery } from '../queries'
 import { parseEventFilters } from '../filters'
+import { DateRangeFilter } from '../DateRangeFilter'
 
 const PAGE_SIZE = 20
 
@@ -17,10 +18,16 @@ export function EventsPage() {
       ? [filters.city, ...cityNames]
       : cityNames
 
-  const { data, isPending, isError, isPlaceholderData } = useEventsQuery({
-    ...filters,
-    size: PAGE_SIZE,
-  })
+  const rangeInvalid =
+    !!filters.dateFrom && !!filters.dateTo && filters.dateFrom > filters.dateTo
+
+  const { data, isPending, isError, isPlaceholderData } = useEventsQuery(
+    {
+      ...filters,
+      size: PAGE_SIZE,
+    },
+    { enabled: !rangeInvalid },
+  )
 
   function handleCityChange(value: string) {
     setSearchParams((prev) => {
@@ -32,11 +39,13 @@ export function EventsPage() {
     })
   }
 
-  function handleDateChange(key: 'dateFrom' | 'dateTo', value: string) {
+  function handleDateRangeChange(range: { from?: string; to?: string }) {
     setSearchParams((prev) => {
       const next = new URLSearchParams(prev)
-      if (value) next.set(key, value)
-      else next.delete(key)
+      if (range.from) next.set('dateFrom', range.from)
+      else next.delete('dateFrom')
+      if (range.to) next.set('dateTo', range.to)
+      else next.delete('dateTo')
       next.delete('page')
       return next
     })
@@ -67,20 +76,20 @@ export function EventsPage() {
           </option>
         ))}
       </select>
-      <input
-        type="date"
-        value={filters.dateFrom ?? ''}
-        max={filters.dateTo}
-        onChange={(e) => handleDateChange('dateFrom', e.target.value)}
-      />
-      <input
-        type="date"
-        value={filters.dateTo ?? ''}
-        min={filters.dateFrom}
-        onChange={(e) => handleDateChange('dateTo', e.target.value)}
+      <DateRangeFilter
+        from={filters.dateFrom}
+        to={filters.dateTo}
+        onChange={handleDateRangeChange}
       />
 
-      {isPending ? (
+      {rangeInvalid ? (
+        <div>
+          <p>Başlangıç tarihi bitiş tarihinden sonra.</p>
+          <button onClick={() => handleDateRangeChange({})}>
+            Tarihleri temizle
+          </button>
+        </div>
+      ) : isPending ? (
         <p>Loading</p>
       ) : isError ? (
         <p>Error loading events</p>
