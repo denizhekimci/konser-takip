@@ -1,0 +1,12 @@
+{
+  "common": {
+    "loading": "Loading…"
+  },
+  "nav": {
+    "events": "Concerts",
+    "language": "Language"
+  },
+  "events": {
+    "loadError": "Couldn't load events."
+  }
+}

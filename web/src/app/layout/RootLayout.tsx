@@ -1,9 +1,12 @@
 import { Link, NavLink, Outlet, type NavLinkRenderProps } from 'react-router'
+import { LanguageSwitcher } from './LanguageSwitcher'
+import { useTranslation } from 'react-i18next'
 
 const navLinkClass = ({ isActive }: NavLinkRenderProps) =>
   isActive ? 'font-semibold text-white' : 'text-neutral-400 hover:text-white'
 
 export function RootLayout() {
+  const { t } = useTranslation()
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       <header className="border-b border-neutral-800">
@@ -12,8 +15,9 @@ export function RootLayout() {
             konser-takip
           </Link>
           <NavLink to="/events" className={navLinkClass}>
-            Konserler
+            {t('nav.events')}
           </NavLink>
+          <LanguageSwitcher />
         </nav>
       </header>
       <main className="mx-auto max-w-6xl px-4 py-6">

@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { EventCard } from '../components/EventCard'
 import { useCitiesQuery, useEventsQuery } from '../queries'
 import { parseEventFilters } from '../filters'
@@ -7,6 +8,7 @@ import { DateRangeFilter } from '../DateRangeFilter'
 const PAGE_SIZE = 20
 
 export function EventsPage() {
+  const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const { data: cityList } = useCitiesQuery()
@@ -90,9 +92,9 @@ export function EventsPage() {
           </button>
         </div>
       ) : isPending ? (
-        <p>Loading</p>
+        <p>{t('common.loading')}</p>
       ) : isError ? (
-        <p>Error loading events</p>
+        <p>{t('events.loadError')}</p>
       ) : data.totalElements === 0 ? (
         <p>No events to match these filters.</p>
       ) : data.items.length === 0 ? (

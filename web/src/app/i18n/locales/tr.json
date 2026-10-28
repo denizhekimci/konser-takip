@@ -1,0 +1,12 @@
+{
+  "common": {
+    "loading": "Yükleniyor…"
+  },
+  "nav": {
+    "events": "Konserler",
+    "language": "Dil"
+  },
+  "events": {
+    "loadError": "Etkinlikler yüklenemedi."
+  }
+}
