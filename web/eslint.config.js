@@ -21,4 +21,12 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // shadcn components export variants (e.g. buttonVariants) next to the
+    // component by design; Fast Refresh falls back to a full reload there.
+    files: ['src/shared/components/ui/**/*.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])
